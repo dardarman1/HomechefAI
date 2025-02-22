@@ -1,5 +1,6 @@
 import json
 import threading
+import connect_to_supercook as sp
 
 g_ingredients_list = []
 ingredients_lock = threading.Lock()
@@ -21,6 +22,7 @@ def get_user_ingredients():
             "list_name": list_name,
             "ingredients": ingredients
         })
+    sp.get_ingredients_for_supercook(ingredients)
     print(f"Ingredient list '{list_name}' saved!")
     
 if __name__ == "__main__":
