@@ -1,9 +1,13 @@
 import unittest
+import os
 from unittest.mock import patch, MagicMock
 from functions import store_api_key, get_api_key
 from google import genai
 
-
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+response = client.models.generate_content(
+    model="gemini-2.0-flash", contents=["Hello, how are you?"]
+)
 
 class TestFunctions(unittest.TestCase):
     
@@ -16,9 +20,9 @@ class TestFunctions(unittest.TestCase):
         mock_db.collection.return_value = fake_collection
         
         
-        result = store_api_key('AIzaSyDsAMSEAXzkrDTrR-jn8HyTHh-wxrpHKPo')
+        result = store_api_key(os.environ["GEMINI_API_KEY"])
         
-        fake_doc_ref.set.assert_called_once_with({"api_key": "AIzaSyDsAMSEAXzkrDTrR-jn8HyTHh-wxrpHKPo"})
+        fake_doc_ref.set.assert_called_once_with({"api_key": os.environ["GEMINI_API_KEY"]})
         
         # return 0 if it succeeds
         self.assertEqual(result, 0)
