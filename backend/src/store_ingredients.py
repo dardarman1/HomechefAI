@@ -24,6 +24,7 @@ def get_user_ingredients():
         })
     sp.get_ingredients_for_supercook(ingredients)
     print(f"Ingredient list '{list_name}' saved!")
+    print(g_ingredients_list)
     
 if __name__ == "__main__":
     while True:
