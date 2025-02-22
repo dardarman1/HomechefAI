@@ -4,6 +4,7 @@ using UnityEngine;
 public class CreateButton : MonoBehaviour
 {
     public Transform ingredientContainer;
+    public Animator recipesContentAnimator;
 
     public void Create() {
         List<string> ingredients = new List<string>();
@@ -12,6 +13,8 @@ public class CreateButton : MonoBehaviour
             ingredients.Add(child.GetComponentsInChildren<TMPro.TextMeshProUGUI>()[1].text);
         }
 
-        Debug.Log("Ingredients: " + string.Join(", ", ingredients));
+        if (ingredients.Count == 0) return;
+
+        recipesContentAnimator.SetTrigger("Toggle");
     }
 }
