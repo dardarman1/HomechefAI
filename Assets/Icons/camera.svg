@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500"
+   height="500"
+   viewBox="0 0 132.29166 132.29167"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="camera.svg"
+   inkscape:export-filename="camera.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.91262664"
+     inkscape:cx="314.4769"
+     inkscape:cy="214.21684"
+     inkscape:window-width="1512"
+     inkscape:window-height="856"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="powerclip"
+       message=""
+       id="path-effect8"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false" />
+    <inkscape:path-effect
+       effect="powerclip"
+       message=""
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false" />
+    <filter
+       id="mask-powermask-path-effect4_inverse"
+       inkscape:label="filtermask-powermask-path-effect4"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect4_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect4_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4">
+      <g
+         id="g7">
+        <rect
+           style="fill:#ffffff;stroke-width:1.32292"
+           id="rect5"
+           width="22.737631"
+           height="26.458332"
+           x="39.189339"
+           y="-18.040705"
+           transform="rotate(38.336409)" />
+        <rect
+           style="fill:#ffffff;stroke-width:1.32292"
+           id="rect6"
+           width="22.737631"
+           height="26.458332"
+           x="-64.311378"
+           y="63.969269"
+           transform="matrix(-0.78438237,0.6202776,0.6202776,0.78438237,0,0)" />
+        <rect
+           style="fill:#ffffff;stroke-width:1.32292"
+           id="rect7"
+           width="48.380054"
+           height="27.880028"
+           x="43.050049"
+           y="11.480012" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <circle
+         style="display:none;fill:#ffffff;stroke-width:1.125"
+         id="circle8"
+         cx="65.908203"
+         cy="64.254562"
+         r="22.5"
+         d="m 88.408203,64.254562 a 22.5,22.5 0 0 1 -22.5,22.5 22.5,22.5 0 0 1 -22.5,-22.5 22.5,22.5 0 0 1 22.5,-22.5 22.5,22.5 0 0 1 22.5,22.5 z" />
+      <path
+         id="lpe_path-effect8"
+         style="display:inline;fill:#ffffff;stroke-width:1.125"
+         class="powerclip"
+         d="M -5,26.279297 H 137.29167 V 107.75513 H -5 Z m 93.408203,37.975265 a 22.5,22.5 0 0 0 -22.5,-22.5 22.5,22.5 0 0 0 -22.5,22.5 22.5,22.5 0 0 0 22.5,22.5 22.5,22.5 0 0 0 22.5,-22.5 z" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000;stroke-width:1.45464"
+       id="rect1"
+       width="132.29167"
+       height="71.475838"
+       x="0"
+       y="31.279297"
+       clip-path="url(#clipPath8)"
+       sodipodi:type="rect"
+       ry="10.721376"
+       inkscape:path-effect="#path-effect8"
+       d="M 10.721376,31.279297 H 121.5703 c 5.93964,0 10.72137,4.781734 10.72137,10.721376 v 50.033085 c 0,5.939643 -4.78173,10.721372 -10.72137,10.721372 H 10.721376 C 4.7817339,102.75513 0,97.973401 0,92.033758 V 42.000673 C 0,36.061031 4.7817339,31.279297 10.721376,31.279297 Z" />
+    <rect
+       style="fill:#000000;stroke-width:1.40839"
+       id="rect2"
+       width="80"
+       height="20"
+       x="26"
+       y="15.296224"
+       ry="0"
+       clip-path="url(#clipPath4)"
+       transform="translate(0.52916663,1.0583333)" />
+  </g>
+</svg>
