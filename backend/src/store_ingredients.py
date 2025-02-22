@@ -1,6 +1,8 @@
 import json
+import threading
 
 g_ingredients_list = []
+ingredients_lock = threading.Lock()
 
 def get_user_ingredients():
     global g_ingredients_list
@@ -14,10 +16,14 @@ def get_user_ingredients():
             break
         if ingredient:
             ingredients.append(ingredient)
-    g_ingredients_list = ingredients
-    return ingredients
+    with ingredients_lock:
+        g_ingredients_list.append({
+            "list_name": list_name,
+            "ingredients": ingredients
+        })
+    print(f"Ingredient list '{list_name}' saved!")
     
-def main():
+if __name__ == "__main__":
     while True:
         action = input("Type '1' to create a new ingredient list and 'exit' to quit: ").strip()
         if action == '1':
@@ -26,7 +32,3 @@ def main():
             break
         else:
             print("Invalid choice. Please enter '1' or 'exit'.")
-
-if __name__ == "__main__":
-    main()
-
