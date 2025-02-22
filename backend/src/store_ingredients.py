@@ -20,13 +20,8 @@ def get_user_ingredients():
 def main():
     while True:
         action = input("Type '1' to create a new ingredient list and 'exit' to quit: ").strip()
-        
         if action == '1':
-            #data = load_ingredients()
-            #list_name, ingredients
             get_user_ingredients()
-            #if list_name and ingredients:
-                #save_ingredients(list_name, ingredients)
         elif action.lower() == 'exit':
             break
         else:
