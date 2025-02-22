@@ -1,9 +1,10 @@
 from firebase_config import get_db
 
-db = get_db
+db = get_db()
 
 # api_key refers to the Gemini API key
 def store_api_key(api_key):
+    global db
     """
     _safely stores the api_key_
 
@@ -23,20 +24,21 @@ def store_api_key(api_key):
         return -1
     return 0
 
-def get_api_key():
+def get_api_key() -> str:
     """
     Retrieves the Gemini API key from the database
 
     Returns:
-        _int_: _returns the int -1 if error_
-        _dict_: _returns the dictionary containing the API key_
+        _NONE_: _returns None if fails_
+        _str_: _returns _the api_key if success_
     """
+    global db
     doc_ref = db.collection('api_keys').document('gemini')
     try:
         doc = doc_ref.get()
         
         if not getattr(doc, 'exists', False):
-            return -1
-        return doc.to_dict()
+            return None
+        return doc.to_dict()['api_key']
     except Exception as e:
-        return -1
+        return None
