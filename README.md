@@ -7,4 +7,4 @@ HomechefAI was created to allow for users to make use of random ingredients foun
 -  Used Unity for front-end development
 
 ## Installation Process
-- Simply install the APK to use HomechefAI
+- Simply [install](https://github.com/Kaya-Kaya/BoilerMake/releases/download/latest/Android.apk.zip) the APK to use HomechefAI
