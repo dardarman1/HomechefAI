@@ -14,7 +14,7 @@ public class CreateButton : MonoBehaviour
     [Serializable]
     public class RecipeJSON
     {
-        public string name;
+        public string recipe_name;
         public string url;
         public string[] ingredients;
         public string[] directions;
@@ -45,26 +45,25 @@ public class CreateButton : MonoBehaviour
         IngredientsJSON ingredientsJSON = new IngredientsJSON();
         ingredientsJSON.ingredients = ingredients.ToArray();
         using (UnityWebRequest www = UnityWebRequest.Post(url, JsonUtility.ToJson(ingredientsJSON), "application/json"))
-        {
+        {   
+            www.downloadHandler = new StreamingDownloadHandler(OnChunkReceived, "\n");
+            www.timeout = 0; // No timeout
+
             Debug.Log(System.Text.Encoding.UTF8.GetString(www.uploadHandler.data));
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.downloadHandler.text);
-            }
+                Debug.LogError($"Stream error: {www.error}");
             else
-            {
-                string responseText = www.downloadHandler.text;
-                Debug.Log(responseText);
-
-                RecipeJSON[] recipes = JsonUtility.FromJson<RecipeJSON[]>(responseText);
-                foreach (RecipeJSON recipe in recipes)
-                {
-                    GameObject recipeObj = Instantiate(recipePrefab, recipesContainer);
-                    recipeObj.GetComponent<Recipe>().SetRecipeEntry(recipe.name, recipe.url, recipe.ingredients, recipe.directions);
-                }
-            }
+                Debug.Log("Success");
         }
+    }
+
+    private void OnChunkReceived(string chunk) {
+        Debug.Log("Received chunk: " + chunk);
+        RecipeJSON recipe = JsonUtility.FromJson<RecipeJSON>(chunk);
+
+        GameObject recipeEntry = Instantiate(recipePrefab, recipesContainer);
+        recipeEntry.GetComponent<Recipe>().SetRecipeEntry(recipe.recipe_name, recipe.url, recipe.ingredients, recipe.directions);
     }
 }
