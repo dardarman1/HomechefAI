@@ -1,7 +1,7 @@
 Pillow
 Flask
 firebase-admin
-google-generativeai
+google-genai
 google-cloud-secret-manager
 flask-cors
 bs4
