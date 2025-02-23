@@ -10,5 +10,8 @@ def create_app(config_class=Config):
 
     # Ensure upload folder exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    
+    from backend.src import sessions
+    from backend.src.vision_service import VisionService
 
     return app 

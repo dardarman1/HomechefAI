@@ -3,7 +3,7 @@ from PIL import Image
 import json
 import os
 import io
-from functions import get_api_key
+from .functions import get_api_key
 from duckduckgo_search import DDGS
 from duckduckgo_search.exceptions import DuckDuckGoSearchException
 import requests
