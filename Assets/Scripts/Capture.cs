@@ -28,9 +28,6 @@ public class Capture : MonoBehaviour
     }
 
     IEnumerator Upload(string image) {
-        string filePath = "/Users/kaya/Documents/GitHub/BoilerMake/Assets/Scripts/upload_data.txt";
-        System.IO.File.WriteAllText(filePath, $"Session ID: {sessionId}\nImage: {image}");
-        
         using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app/get_ingredients",
                                                           $"\"image\": \"{image}\"}}", "application/json"))
         {
