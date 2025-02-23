@@ -21,7 +21,7 @@ CORS(app)  # Enable CORS for frontend requests
 def test():
     return "OK", 200
 
-@app.route('/start_session', methods=['POST'])
+@app.route('/start_session', methods=['GET'])
 def start_session():
     """Creates a new session with a unique ID and stores it in Firestore."""
     session_id = str(uuid.uuid4())

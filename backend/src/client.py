@@ -4,7 +4,7 @@ API_BASE = "http://127.0.0.1:8080"
 
 def start_session():
     """Start a new session and return the session ID."""
-    response = requests.post(f"{API_BASE}/start_session")
+    response = requests.get(f"{API_BASE}/start_session")
     if response.status_code == 200:
         session_id = response.json().get("session_id")
         print(f"Session started: {session_id}")
