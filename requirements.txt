@@ -4,3 +4,5 @@ firebase-admin
 google-generativeai
 google-cloud-secret-manager
 flask-cors
+bs4
+duckduckgo-search
