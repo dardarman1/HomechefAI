@@ -52,8 +52,7 @@ class VisionService:
             response = self.client.models.generate_content(
                 model="gemini-2.0-flash",
                 contents=[
-                    {"role": "user", "parts": [{"text": prompt_text}]},
-                    {"role": "user", "parts": [types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg")]},
+                    {"role": "user", "parts": [{"text": prompt_text}]}
                 ],
                 generation_config=config
             )
