@@ -20,4 +20,4 @@ def get_api_key() -> str:
         gemini_api_key = response.payload.data.decode('UTF-8')
         return gemini_api_key
     except Exception as e:
-        return None
+        return e.message

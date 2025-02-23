@@ -9,6 +9,7 @@ from firebase_admin import credentials, firestore
 from flask import Flask, request, jsonify, Blueprint, current_app
 from flask_cors import CORS
 from .vision_service import VisionService
+from .functions import get_api_key
 
 # Initialize Firebase
 #cred = credentials.Certificate("/Users/sidkas484/Downloads/homechefai-41cf6-firebase-adminsdk-fbsvc-3dc3aaeadf.json")
@@ -128,10 +129,11 @@ def get_ingredients():
     #if os.path.exists(temp_image_path):
     #    print(f"🗑️ Deleting temporary image file: {temp_image_path}")
     #    os.remove(temp_image_path)
-
-    if extracted_ingredients is None:
-        print("🔴 Error: VisionService failed to extract ingredients")
-        return jsonify({"error": "Failed to extract ingredients"}), 500
+    return extracted_ingredients
+    # if extracted_ingredients is None:
+    #     print("🔴 Error: VisionService failed to extract ingredients")
+    #     return jsonify({get_api_key()}), 500
+        # return jsonify({"error": "Failed to extract ingredients"}), 500
 
     # Update session in Firestore
     try:
