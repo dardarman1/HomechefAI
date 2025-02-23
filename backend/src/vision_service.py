@@ -25,8 +25,7 @@ class VisionService:
         # if api_key_data == -1:
         #     raise ValueError("Failed to get API key")
 
-        genai.configure(api_key=api_key_data)
-        self.client = genai.GenerativeModel(model_name="gemini-1.5-flash")  # Or "gemini-1.5-pro"
+        self.client = genai.Client(api_key=api_key_data)
         print(f"✅ Successfully initialized Gemini Model: {self.client}")
 
     def extract_ingredients_from_image(self, image_bytes: str):
@@ -50,10 +49,10 @@ class VisionService:
             print("🔹 Sending request to Gemini API...")
 
             # Correct request format
-            response = self.client.generate_content(
+            response = self.client.models.generate_content(
                 contents=[
                     {"role": "user", "parts": [{"text": prompt_text}]},
-                    {"role": "user", "parts": [types.Part.from_bytes(data=image.content, mime_type="image/jpeg")]},
+                    {"role": "user", "parts": [types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg")]},
                 ],
                 generation_config=config
             )
