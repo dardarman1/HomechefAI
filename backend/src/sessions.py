@@ -5,11 +5,13 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from vision_service import VisionService
+from .vision_service import VisionService
 
 # Initialize Firebase
-cred = credentials.Certificate("/Users/sidkas484/Downloads/homechefai-41cf6-firebase-adminsdk-fbsvc-3dc3aaeadf.json")
-firebase_admin.initialize_app(cred)
+#cred = credentials.Certificate("/Users/sidkas484/Downloads/homechefai-41cf6-firebase-adminsdk-fbsvc-3dc3aaeadf.json")
+#firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    firebase_admin.initialize_app()
 db = firestore.client()
 
 app = Flask(__name__)
