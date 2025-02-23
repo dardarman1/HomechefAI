@@ -17,7 +17,7 @@ db = firestore.client()
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend requests
 
-@app.route('/start_session', methods=['POST'])
+@app.route('/start_session', methods=['GET'])
 def start_session():
     """Creates a new session with a unique ID and stores it in Firestore."""
     session_id = str(uuid.uuid4())
