@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 class VisionService:
     def __init__(self):
         """Initialize Google Gemini Vision AI Client."""
-        api_key_data = os.environ['GEMINI_API_KEY']
+        api_key_data = get_api_key()
         
         if api_key_data is None:
             raise ValueError("Failed to get API key")

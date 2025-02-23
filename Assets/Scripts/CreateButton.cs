@@ -20,6 +20,12 @@ public class CreateButton : MonoBehaviour
         public string[] directions;
     }
 
+    [Serializable]
+    public class IngredientsJSON
+    {
+        public string[] ingredients;
+    }
+
     public void Create() {
         List<string> ingredients = new List<string>();
 
@@ -31,14 +37,16 @@ public class CreateButton : MonoBehaviour
 
         recipesContentAnimator.SetTrigger("Toggle");
 
-
+        StartCoroutine(GetRecipes(ingredients));
     }
 
     IEnumerator GetRecipes(List<string> ingredients) {
         string url = "https://my-service-894665829957.us-central1.run.app/get_recipes";
-        string ingredientsStr = string.Join(",", ingredients);
-        using (UnityWebRequest www = UnityWebRequest.Post(url, $"{{\"ingredients\": [{ingredientsStr}]}}", "application/json"))
+        IngredientsJSON ingredientsJSON = new IngredientsJSON();
+        ingredientsJSON.ingredients = ingredients.ToArray();
+        using (UnityWebRequest www = UnityWebRequest.Post(url, JsonUtility.ToJson(ingredientsJSON), "application/json"))
         {
+            Debug.Log(System.Text.Encoding.UTF8.GetString(www.uploadHandler.data));
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
