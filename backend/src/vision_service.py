@@ -50,6 +50,7 @@ class VisionService:
 
             # Correct request format
             response = self.client.models.generate_content(
+                model="gemini-2.0-flash-exp",
                 contents=[
                     {"role": "user", "parts": [{"text": prompt_text}]},
                     {"role": "user", "parts": [types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg")]},
