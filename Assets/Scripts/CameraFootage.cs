@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CameraFootage : MonoBehaviour
 {
-    private WebCamTexture webcamTexture;
+    public WebCamTexture webcamTexture { get; private set; }
     public RawImage rawImage;
     public bool useFrontCamera = false;
     private bool hasCameraPermissions { get {
