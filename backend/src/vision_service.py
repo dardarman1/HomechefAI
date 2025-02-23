@@ -152,6 +152,8 @@ class VisionService:
                     # 🔹 Gemini AI prompt with example format
                     prompt_text = """
                     Extract a recipe from the following text. Output the result in clean JSON format.
+                    If there are no directions or recipes, and either or are empty, then do not output and instead output a
+                    statement saying that either the directions or recipes are missing, or even both if that is the case.
                     Ensure the structure is:
                     {
                         "recipe_name": "Recipe Name",
