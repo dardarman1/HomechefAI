@@ -1,5 +1,6 @@
 import google.generativeai as genai
 from PIL import Image
+from google.generativeai import types
 import json
 import os
 import io
@@ -48,7 +49,7 @@ class VisionService:
             response = self.client.generate_content(
                 contents=[
                     {"role": "user", "parts": [{"text": prompt_text}]},
-                    {"role": "user", "parts": [{"mime_type": "image/jpeg", "data": image_bytes}]},
+                    {"role": "user", "parts": types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg")},
                 ],
                 generation_config=config
             )
