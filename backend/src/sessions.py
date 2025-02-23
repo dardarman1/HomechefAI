@@ -76,13 +76,13 @@ def get_ingredients():
     if not data:
         current_app.logger.error("🔴 Error: No JSON data received")
         return jsonify({"error": "No JSON data received"}), 400
-    session_id = data.get("session_id")
+    # session_id = data.get("session_id")
     image_str = data.get("image")
-    current_app.logger.info(f"🔹 Session ID received: {session_id}")
+    # current_app.logger.info(f"🔹 Session ID received: {session_id}")
 
-    if not session_id or not image_str:
-        current_app.logger.error("🔴 Error: Missing session_id or image")
-        return jsonify({"error": "Missing session_id or image"}), 400
+    # if not session_id or not image_str:
+    #     current_app.logger.error("🔴 Error: Missing session_id or image")
+    #     return jsonify({"error": "Missing session_id or image"}), 400
     
     #  # Remove data URI scheme if present
     # match = re.match(r"^data:image\/[a-zA-Z]+;base64,", image_str)
@@ -103,12 +103,12 @@ def get_ingredients():
     #     return jsonify({"error": "Failed to save image", "details": str(e)}), 500
     
     # Retrieve session data from Firestore
-    session_ref = db.collection("sessions").document(session_id)
-    session = session_ref.get()
+    # session_ref = db.collection("sessions").document(session_id)
+    # session = session_ref.get()
     
-    if not session.exists:
-        print(f"🔴 Error: Session {session_id} not found in Firestore")
-        return jsonify({"error": "Session not found"}), 404
+    # if not session.exists:
+    #     print(f"🔴 Error: Session {session_id} not found in Firestore")
+    #     return jsonify({"error": "Session not found"}), 404
 
     # image_file = request.files["image"]
     # temp_image_path = "/Users/sidkas484/Documents/GitHub/BoilerMake/backend/src/test.jpg"

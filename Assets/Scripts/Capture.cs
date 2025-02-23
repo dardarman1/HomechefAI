@@ -7,34 +7,9 @@ using UnityEngine.Networking;
 public class Capture : MonoBehaviour
 {
     [Serializable]
-    public class SessionResponse
-    {
-        public string session_id;
-    }
-
-    [Serializable]
     public class IngredientsResponse
     {
         public string[] ingredients;
-    }
-
-    private string sessionId;
-
-    IEnumerator Start() {
-        using (UnityWebRequest www = UnityWebRequest.Get("https://my-service-894665829957.us-central1.run.app/start_session"))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError(www.error);
-            }
-            else
-            {
-                var jsonResponse = JsonUtility.FromJson<SessionResponse>(www.downloadHandler.text);
-                sessionId = jsonResponse.session_id;
-            }
-        }
     }
 
     public void CaptureContent() {
@@ -53,11 +28,8 @@ public class Capture : MonoBehaviour
     }
 
     IEnumerator Upload(string image) {
-        string filePath = "/Users/kaya/Documents/GitHub/BoilerMake/Assets/Scripts/upload_data.txt";
-        System.IO.File.WriteAllText(filePath, $"Session ID: {sessionId}\nImage: {image}");
-        
         using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app/get_ingredients",
-                                                          $"{{\"session_id\": \"{sessionId}\", \"image\": \"{image}\"}}", "application/json"))
+                                                          $"\"image\": \"{image}\"}}", "application/json"))
         {
             Debug.Log(System.Text.Encoding.UTF8.GetString(www.uploadHandler.data));
             yield return www.SendWebRequest();
