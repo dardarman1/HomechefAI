@@ -193,7 +193,7 @@ class VisionService:
                         and recipe_json["directions"] != []
                     ):
                         valid_recipes.append(recipe_json)
-                        yield json.dumps(json.loads(recipe_json)) + "\n"
+                        yield json.dumps(recipe_json) + "\n"
                         print(f"✅ Valid recipe found: {recipe_json['recipe_name']}")
                     else:
                         print(f"🔴 Skipping {result['href']} - Empty or incomplete recipe")
