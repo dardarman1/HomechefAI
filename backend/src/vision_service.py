@@ -179,6 +179,8 @@ class VisionService:
 
                     recipe_json = json.loads(response_text[response_text.find('{'):response_text.rfind('}') + 1])
                     print(recipe_json)
+                    
+                    recipe_json["url"] = result["href"]  # Add the URL to the recipe JSON
 
                     # Ensure proper structure and filter out empty recipes
                     if (
