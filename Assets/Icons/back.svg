@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500"
+   height="500"
+   viewBox="0 0 132.29166 132.29167"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="back.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="back.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.52410025"
+     inkscape:cx="366.34213"
+     inkscape:cy="468.42183"
+     inkscape:window-width="1512"
+     inkscape:window-height="856"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true" />
+  <defs
+     id="defs1">
+    <filter
+       id="mask-powermask-path-effect3_inverse"
+       inkscape:label="filtermask-powermask-path-effect3"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect3_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect3_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect4_inverse"
+       inkscape:label="filtermask-powermask-path-effect4"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect4_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect4_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       id="mask-powermask-path-effect5_inverse"
+       inkscape:label="filtermask-powermask-path-effect5"
+       style="color-interpolation-filters:sRGB"
+       height="100"
+       width="100"
+       x="-50"
+       y="-50">
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive1"
+         values="1"
+         type="saturate"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         id="mask-powermask-path-effect5_primitive2"
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0 "
+         in="fbSourceGraphic" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <g
+         id="g10">
+        <g
+           id="g9"
+           transform="translate(-3.1552091,-0.88345854)">
+          <rect
+             style="fill:#333333;stroke-width:1.32292"
+             id="rect8"
+             width="17.848557"
+             height="40.69471"
+             x="50.1012"
+             y="6.4624352"
+             transform="rotate(44.038342)" />
+          <rect
+             style="fill:#333333;stroke-width:1.32292"
+             id="rect9"
+             width="17.848557"
+             height="40.69471"
+             x="-46.414963"
+             y="-91.484489"
+             transform="matrix(0.70238275,-0.71179946,-0.71179946,-0.70238275,0,0)" />
+        </g>
+        <rect
+           style="fill:#333333;stroke-width:1.32292"
+           id="rect10"
+           width="66.006973"
+           height="37.231468"
+           x="24.736839"
+           y="48.842636" />
+      </g>
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;stroke-width:1.15181"
+       id="rect1"
+       width="19.441523"
+       height="72.083221"
+       x="94.065941"
+       y="40.970837"
+       ry="6.8110127" />
+    <rect
+       style="fill:#ffffff;stroke-width:1.54458"
+       id="rect1-5"
+       width="79.375"
+       height="31.75"
+       x="-1.7763568e-15"
+       y="52.916668"
+       ry="15.740203"
+       clip-path="url(#clipPath8)"
+       transform="matrix(1.2961016,0,0,0.61233144,10.675095,8.5100025)" />
+    <rect
+       style="fill:#ffffff;stroke-width:1.25957"
+       id="rect2-3"
+       width="12.484988"
+       height="52.739113"
+       x="-53.121899"
+       y="-18.985241"
+       transform="matrix(-0.75247383,-0.65862215,-0.67520745,0.73762789,0,0)"
+       inkscape:transform-center-x="5.4521806"
+       inkscape:transform-center-y="-2.1758123"
+       ry="6.2424941" />
+    <rect
+       style="fill:#ffffff;stroke-width:1.25957"
+       id="rect2-3-8"
+       width="12.484988"
+       height="52.739113"
+       x="16.46666"
+       y="-96.465607"
+       transform="matrix(-0.75247383,0.65862215,-0.67520745,-0.73762789,0,0)"
+       inkscape:transform-center-x="5.4521811"
+       inkscape:transform-center-y="2.1758098"
+       ry="6.2424941" />
+    <rect
+       style="fill:#ffffff;stroke-width:1.32292"
+       id="rect2"
+       width="23.381611"
+       height="10.352163"
+       x="81.078758"
+       y="40.993752"
+       ry="0"
+       rx="0" />
+  </g>
+</svg>

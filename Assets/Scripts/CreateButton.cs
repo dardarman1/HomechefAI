@@ -5,6 +5,8 @@ public class CreateButton : MonoBehaviour
 {
     public Transform ingredientContainer;
     public Animator recipesContentAnimator;
+    public GameObject recipePrefab;
+    public Transform recipesContainer;
 
     public void Create() {
         List<string> ingredients = new List<string>();
