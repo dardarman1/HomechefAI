@@ -11,8 +11,4 @@ def create_app(config_class=Config):
     # Ensure upload folder exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-    # Register blueprints
-    from app.routes import api
-    app.register_blueprint(api)
-
     return app 
