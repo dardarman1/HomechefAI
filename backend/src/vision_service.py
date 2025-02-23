@@ -49,7 +49,7 @@ class VisionService:
             response = self.client.generate_content(
                 contents=[
                     {"role": "user", "parts": [{"text": prompt_text}]},
-                    {"role": "user", "parts": [types.PartType.frombytes(data=image_bytes, mime_type="image/jpeg")]},
+                    {"role": "user", "parts": [types.Part(inline_data=types.Blob(mime_type="image/jpeg", data=image_bytes))]},
                 ],
                 generation_config=config
             )
