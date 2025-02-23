@@ -1,4 +1,5 @@
 from google.cloud import secretmanager
+import traceback
 
 
 def get_api_key() -> str:
@@ -20,4 +21,6 @@ def get_api_key() -> str:
         gemini_api_key = response.payload.data.decode('UTF-8')
         return gemini_api_key
     except Exception as e:
-        return e.message
+        print(f"An error occurred: {e}")
+        traceback.print_exc()
+        return None

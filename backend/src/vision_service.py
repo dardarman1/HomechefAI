@@ -17,8 +17,8 @@ class VisionService:
         """Initialize Google Gemini Vision AI Client."""
         api_key_data = get_api_key()
         
-        # if api_key_data is Exception:
-        #     raise api_key_data
+        if api_key_data is None:
+            raise ValueError("Failed to get API key")
         
         print(f"🔹 Loaded API Key: {api_key_data}")  # Debugging
 
@@ -52,9 +52,10 @@ class VisionService:
             response = self.client.models.generate_content(
                 model="gemini-2.0-flash",
                 contents=[
-                    {"role": "user", "parts": [{"text": prompt_text}]}
+                    {"role": "user", "parts": [{"text": prompt_text}]},
+                    {"role": "user", "parts": [types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg")]},
                 ],
-                generation_config=config
+                config=config
             )
 
             print(f"🔹 Gemini API Response: {response.text}")
@@ -208,3 +209,12 @@ class VisionService:
         except Exception as e:
             print(f"🔴 Error fetching recipes: {e}")
             return None
+        
+
+if __name__ == '__main__':
+    vision_service = VisionService()
+    image_path = "test.jpg"
+    with open(image_path, "rb") as image_file:
+        image_bytes = image_file.read()
+        vision_service.extract_ingredients_from_image(image_bytes)
+        # vision_service.get_recipes_from_ingredients(["Tomato", "Onion", "Garlic"])
