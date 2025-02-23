@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,6 +10,12 @@ public class Capture : MonoBehaviour
     public class SessionResponse
     {
         public string session_id;
+    }
+
+    [Serializable]
+    public class IngredientsResponse
+    {
+        public string[] ingredients;
     }
 
     private string sessionId;
@@ -61,7 +68,15 @@ public class Capture : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                var responseText = $"{{\"ingredients\": {www.downloadHandler.text}}}";
+                Debug.Log(responseText);
+
+                string[] ingredients = JsonUtility.FromJson<IngredientsResponse>(responseText).ingredients;
+                AddIngredient addIngredient = FindAnyObjectByType<AddIngredient>();
+                foreach (string ingredient in ingredients)
+                {
+                    addIngredient.Add(ingredient);
+                }
             }
         }
     }

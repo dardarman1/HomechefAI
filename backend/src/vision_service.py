@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 class VisionService:
     def __init__(self):
         """Initialize Google Gemini Vision AI Client."""
-        api_key_data = get_api_key()
+        api_key_data = os.environ['GEMINI_API_KEY']
         
         if api_key_data is None:
             raise ValueError("Failed to get API key")
@@ -36,8 +36,9 @@ class VisionService:
         """
         try:
             prompt_text = """
-            Identify all food ingredients in the image. Output as a JSON array.
-            Example: ["Tomato", "Onion", "Garlic"]
+            List all the ingredients in the image. Be as specific about ingredient type as possible while remaining accurate. Avoid duplicates. Output them as a JSON array.
+            Example:
+            ["Greek Yogurt", "Bananas", "Orange", "Red Apple", "Ground Beef"]
             """
 
             # ✅ Ensure this dictionary is correctly formatted
@@ -88,7 +89,7 @@ class VisionService:
 
             while True:
                 try:
-                    results = DDGS().text(query, max_results=10)  # Fetch more results to find valid recipes
+                    results = DDGS().text(query, max_results=30)  # Fetch more results to find valid recipes
                     break
                 except DuckDuckGoSearchException:
                     print("🔴 DuckDuckGo search failed, retrying...")
@@ -102,10 +103,7 @@ class VisionService:
             valid_recipes = []
             
             # Try multiple search results until we get up to 5 valid recipes
-            for result in results[:10]:  # Check up to 10 results to find 5 good ones
-                if len(valid_recipes) >= 5:
-                    break  # Stop once we collect 5 recipes
-                
+            for result in results:  # Check up to 10 results to find 5 good ones
                 try:
                     print(f"🔹 Fetching recipe from: {result['href']}")
                     
@@ -132,10 +130,6 @@ class VisionService:
                     if "Ingredients" not in content_text:
                         print(f"🔴 Skipping {result['href']} - No ingredients found")
                         continue
-
-                    ingredient_list_raw = content_text[
-                        content_text.find("Ingredients"):content_text.find("Ingredients") + 2000
-                    ]
 
                     print("🔹 Extracting recipe details using Gemini AI...")
 
@@ -165,11 +159,13 @@ class VisionService:
                     }
 
                     Now extract the recipe from this text:
-                    """ + ingredient_list_raw
+                    """ + content_text
 
                     # 🔹 Send to Gemini AI
-                    response = self.client.generate_content(
-                        contents=[{"role": "user", "parts": [{"text": prompt_text}]}]
+                    response = self.client.models.generate_content(
+                        model="gemini-2.0-flash",
+                        contents=[{"role": "user", "parts": [{"text": prompt_text}]}],
+                        config={"temperature": 0, "max_output_tokens": 2048}
                     )
 
                     print(f"🔹 Gemini API Response: {response.text}")
@@ -181,7 +177,8 @@ class VisionService:
                         print(f"🔴 Skipping {result['href']} - Invalid Gemini response")
                         continue
 
-                    recipe_json = json.loads(response_text)
+                    recipe_json = json.loads(response_text[response_text.find('{'):response_text.rfind('}') + 1])
+                    print(recipe_json)
 
                     # Ensure proper structure and filter out empty recipes
                     if (
@@ -211,10 +208,7 @@ class VisionService:
             return None
         
 
-if __name__ == '__main__':
-    vision_service = VisionService()
-    image_path = "test.jpg"
-    with open(image_path, "rb") as image_file:
-        image_bytes = image_file.read()
-        vision_service.extract_ingredients_from_image(image_bytes)
-        # vision_service.get_recipes_from_ingredients(["Tomato", "Onion", "Garlic"])
+# if __name__ == '__main__':
+#     vision_service = VisionService()
+#     vision_service.get_recipes_from_ingredients(["Tomato", "Onion", "Garlic"])
+#         # vision_service.get_recipes_from_ingredients(["Tomato", "Onion", "Garlic"])

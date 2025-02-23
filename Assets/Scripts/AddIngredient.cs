@@ -17,4 +17,10 @@ public class AddIngredient : MonoBehaviour
         Debug.Log("Added ingredient: " + ingredientName.text);
         ingredientName.text = "";
     }
+
+    public void Add(string ingredientNameStr) {
+        GameObject ingredient = Instantiate(ingredientPrefab, ingredientListParent);
+        ingredient.GetComponentsInChildren<TextMeshProUGUI>()[1].text = ingredientNameStr;
+        Debug.Log("Added ingredient: " + ingredientNameStr);
+    }
 }
