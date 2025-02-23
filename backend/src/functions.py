@@ -1,28 +1,5 @@
-from firebase_config import get_db
+from google.cloud import secretmanager
 
-db = get_db()
-
-# api_key refers to the Gemini API key
-def store_api_key(api_key):
-    global db
-    """
-    _safely stores the api_key_
-
-    Args:
-        api_key (_str_): _the gemini api_key being used_
-
-    Returns:
-        _int_: _returns the int 0 if success, -1 if it fails_
-    """
-    doc_ref = db.collection('api_keys').document('gemini')
-    data = {
-        'api_key': api_key
-    }
-    try:
-        doc_ref.set(data)
-    except Exception as e:
-        return -1
-    return 0
 
 def get_api_key() -> str:
     """
@@ -32,6 +9,19 @@ def get_api_key() -> str:
         _NONE_: _returns None if fails_
         _str_: _returns _the api_key if success_
     """
+    project_id = 'glassy-acolyte-451801-t4'
+    secret_id = "GEMINI_API"
+    version_id = "lateest"
+    secret_name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+    
+    try:
+        client = secretmanager.SecretManagerServiceClient()
+        response = client.access_secret_version(request={"name": secret_name})
+        gemini_api_key = response.payload.data.decode('UTF-8')
+        return gemini_api_key
+    except Exception as e:
+        return None
+    
     global db
     doc_ref = db.collection('api_keys').document('gemini')
     try:

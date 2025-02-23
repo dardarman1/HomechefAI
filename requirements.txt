@@ -1,0 +1,5 @@
+Pillow
+Flask
+firebase-admin
+google-generativeai
+google-cloud-secret-manager
