@@ -18,6 +18,7 @@ def create_app(config_class=Config):
     # Now you can use logging.debug(), logging.info(), etc.
     app.logger.debug("Flask app initialized in debug mode.")
     
+    app.logger.info("🔹 Initializing Firebase...")
     # Ensure upload folder exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
