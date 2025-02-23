@@ -37,7 +37,7 @@ public class CreateButton : MonoBehaviour
     IEnumerator GetRecipes(List<string> ingredients) {
         string url = "https://my-service-894665829957.us-central1.run.app/get_recipes";
         string ingredientsStr = string.Join(",", ingredients);
-        using (UnityWebRequest www = UnityWebRequest.Post(url, $"{{\"ingredients\": {ingredientsStr}}}", "application/json"))
+        using (UnityWebRequest www = UnityWebRequest.Post(url, $"{{\"ingredients\": [{ingredientsStr}]}}", "application/json"))
         {
             yield return www.SendWebRequest();
 
