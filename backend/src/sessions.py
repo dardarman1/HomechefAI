@@ -83,23 +83,23 @@ def get_ingredients():
         current_app.logger.error("🔴 Error: Missing session_id or image")
         return jsonify({"error": "Missing session_id or image"}), 400
     
-     # Remove data URI scheme if present
-    match = re.match(r"^data:image\/[a-zA-Z]+;base64,", image_str)
-    if match:
-        image_str = image_str[match.end():]
+    #  # Remove data URI scheme if present
+    # match = re.match(r"^data:image\/[a-zA-Z]+;base64,", image_str)
+    # if match:
+    #     image_str = image_str[match.end():]
 
-    try:
-        image_data = base64.b64decode(image_str)
-    except Exception as e:
-        current_app.logger.error("🔴 Error: Invalid image data")
-        return jsonify({"error": "Invalid image data", "details": str(e)}), 400
-    temp_image_path = "/tmp/test.jpg"
-    try:
-        with open(temp_image_path, "wb") as f:
-            f.write(image_data)
-    except Exception as e:
-        current_app.logger.error(f"🔴 Error saving image: {e}")
-        return jsonify({"error": "Failed to save image", "details": str(e)}), 500
+    # try:
+    #     image_data = base64.b64decode(image_str)
+    # except Exception as e:
+    #     current_app.logger.error("🔴 Error: Invalid image data")
+    #     return jsonify({"error": "Invalid image data", "details": str(e)}), 400
+    # temp_image_path = "/tmp/test.jpg"
+    # try:
+    #     with open(temp_image_path, "wb") as f:
+    #         f.write(image_data)
+    # except Exception as e:
+    #     current_app.logger.error(f"🔴 Error saving image: {e}")
+    #     return jsonify({"error": "Failed to save image", "details": str(e)}), 500
     
     # Retrieve session data from Firestore
     session_ref = db.collection("sessions").document(session_id)
@@ -120,7 +120,7 @@ def get_ingredients():
     #     return jsonify({"error": "Failed to save image"}), 500
 
     vision_service = VisionService()
-    extracted_ingredients = vision_service.extract_ingredients_from_image(temp_image_path)
+    extracted_ingredients = vision_service.extract_ingredients_from_image(image_str)
 
     print(f"🔹 VisionService output: {extracted_ingredients}")
 
