@@ -15,7 +15,10 @@ class VisionService:
     def __init__(self):
         """Initialize Google Gemini Vision AI Client."""
         api_key_data = get_api_key()
-
+        
+        if not api_key_data:
+            raise ValueError("Failed to get API key")
+        
         print(f"🔹 Loaded API Key: {api_key_data}")  # Debugging
 
         if api_key_data == -1:
