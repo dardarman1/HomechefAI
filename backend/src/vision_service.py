@@ -104,6 +104,8 @@ class VisionService:
             
             # Try multiple search results until we get up to 5 valid recipes
             for result in results:  # Check up to 10 results to find 5 good ones
+                if (len(valid_recipes) >= 5 or len(results) >= 10):
+                    break
                 try:
                     print(f"🔹 Fetching recipe from: {result['href']}")
                     
@@ -160,7 +162,6 @@ class VisionService:
 
                     Now extract the recipe from this text:
                     """ + content_text
-
                     # 🔹 Send to Gemini AI
                     response = self.client.models.generate_content(
                         model="gemini-2.0-flash",
@@ -194,10 +195,10 @@ class VisionService:
                         print(f"✅ Valid recipe found: {recipe_json['recipe_name']}")
                     else:
                         print(f"🔴 Skipping {result['href']} - Empty or incomplete recipe")
-
                 except Exception as e:
                     print(f"🔴 Error processing recipe page: {e}")
-
+                yield str(recipe_json) + "\n"
+                
             if not valid_recipes:
                 print("🔴 No valid recipes found after multiple attempts.")
                 return None  # No valid recipes found
