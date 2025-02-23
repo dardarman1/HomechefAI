@@ -16,6 +16,9 @@ public class Recipe : MonoBehaviour
     }
 
     public void SetRecipeEntry(string name, string url, string[] ingredients, string[] instructions) {
+        if (name.Length > 30) {
+            name = name.Substring(0, 30) + "...";
+        }
         this.ingredients = ingredients;
         this.instructions = instructions;
         recipeName = name;
