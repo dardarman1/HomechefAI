@@ -2,8 +2,11 @@ import uuid
 import os
 import threading
 import firebase_admin
+import re
+import base64
+import logging
 from firebase_admin import credentials, firestore
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint, current_app
 from flask_cors import CORS
 from .vision_service import VisionService
 
@@ -14,21 +17,26 @@ if not firebase_admin._apps:
     firebase_admin.initialize_app()
 db = firestore.client()
 
-app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend requests
+# app = Flask(__name__)
+# CORS(app)  # Enable CORS for frontend requests
 
-@app.route('/test', methods=['GET'])
+sessions_bp = Blueprint('sessions', __name__)
+
+# logger = logging.getLogger(__name__)
+
+@sessions_bp.route('/test', methods=['GET'])
 def test():
     return "OK", 200
 
-@app.route('/start_session', methods=['GET'])
+@sessions_bp.route('/start_session', methods=['GET'])
 def start_session():
     """Creates a new session with a unique ID and stores it in Firestore."""
     session_id = str(uuid.uuid4())
     db.collection("sessions").document(session_id).set({"ingredients": []})
+    print(jsonify({"session_id": session_id}))
     return jsonify({"session_id": session_id})
 
-@app.route('/get_ingredients', methods=['POST'])
+@sessions_bp.route('/get_ingredients', methods=['POST'])
 def get_ingredients():
     """Extracts ingredients from an uploaded image and stores them in Firestore."""
     """session_id = request.form.get("session_id")
@@ -61,15 +69,38 @@ def get_ingredients():
     
     return jsonify({"message": "Ingredients extracted", "ingredients": extracted_ingredients})"""
     """Extracts ingredients from an uploaded image and stores them in Firestore."""
-    print("🔹 Received request to /get_ingredients")
+    current_app.logger.info("🔹 Received request to /get_ingredients")
+    
+    data = request.get_json()
+    if not data:
+        current_app.logger.error("🔴 Error: No JSON data received")
+        return jsonify({"error": "No JSON data received"}), 400
+    session_id = data.get("session_id")
+    image_str = data.get("image")
+    current_app.logger.info(f"🔹 Session ID received: {session_id}")
 
-    session_id = request.form.get("session_id")
-    print(f"🔹 Session ID received: {session_id}")
-
-    if not session_id or "image" not in request.files:
-        print("🔴 Error: Missing session_id or image")
+    if not session_id or not image_str:
+        current_app.logger.error("🔴 Error: Missing session_id or image")
         return jsonify({"error": "Missing session_id or image"}), 400
+    
+     # Remove data URI scheme if present
+    match = re.match(r"^data:image\/[a-zA-Z]+;base64,", image_str)
+    if match:
+        image_str = image_str[match.end():]
 
+    try:
+        image_data = base64.b64decode(image_str)
+    except Exception as e:
+        current_app.logger.error("🔴 Error: Invalid image data")
+        return jsonify({"error": "Invalid image data", "details": str(e)}), 400
+    temp_image_path = "/tmp/test.jpg"
+    try:
+        with open(temp_image_path, "wb") as f:
+            f.write(image_data)
+    except Exception as e:
+        current_app.logger.error(f"🔴 Error saving image: {e}")
+        return jsonify({"error": "Failed to save image", "details": str(e)}), 500
+    
     # Retrieve session data from Firestore
     session_ref = db.collection("sessions").document(session_id)
     session = session_ref.get()
@@ -78,15 +109,15 @@ def get_ingredients():
         print(f"🔴 Error: Session {session_id} not found in Firestore")
         return jsonify({"error": "Session not found"}), 404
 
-    image_file = request.files["image"]
-    temp_image_path = "/Users/sidkas484/Documents/GitHub/BoilerMake/backend/src/test.jpg"
+    # image_file = request.files["image"]
+    # temp_image_path = "/Users/sidkas484/Documents/GitHub/BoilerMake/backend/src/test.jpg"
     
-    try:
-        image_file.save(temp_image_path)
-        print(f"✅ Image saved at {temp_image_path}")
-    except Exception as e:
-        print(f"🔴 Error saving image: {e}")
-        return jsonify({"error": "Failed to save image"}), 500
+    # try:
+    #     image_file.save(temp_image_path)
+    #     print(f"✅ Image saved at {temp_image_path}")
+    # except Exception as e:
+    #     print(f"🔴 Error saving image: {e}")
+    #     return jsonify({"error": "Failed to save image"}), 500
 
     vision_service = VisionService()
     extracted_ingredients = vision_service.extract_ingredients_from_image(temp_image_path)
@@ -109,10 +140,11 @@ def get_ingredients():
     except Exception as e:
         print(f"🔴 Error updating Firestore: {e}")
         return jsonify({"error": "Failed to update Firestore"}), 500
-
+    
+    print(jsonify({"message": "Ingredients extracted", "ingredients": extracted_ingredients}))
     return jsonify({"message": "Ingredients extracted", "ingredients": extracted_ingredients})
 
-@app.route('/get_recipes', methods=['POST'])
+@sessions_bp.route('/get_recipes', methods=['POST'])
 def get_recipes():
     """Fetches recipes based on stored ingredients in Firestore."""
     session_id = request.json.get("session_id")
@@ -139,6 +171,6 @@ def get_recipes():
 
     return jsonify({"recipes": recipes})
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    app.run(host='0.0.0.0', port=port)
+# if __name__ == '__main__':
+#     port = int(os.environ.get('PORT', 8080))
+#     app.run(host='0.0.0.0', port=port)

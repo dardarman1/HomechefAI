@@ -6,3 +6,4 @@ google-cloud-secret-manager
 flask-cors
 bs4
 duckduckgo-search
+google-cloud-logging
