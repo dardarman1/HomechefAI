@@ -6,7 +6,7 @@ import re
 import base64
 import logging
 from firebase_admin import credentials, firestore
-from flask import Flask, request, jsonify, Blueprint, current_app
+from flask import Flask, request, jsonify, Blueprint, current_app, Response
 from flask_cors import CORS
 from .vision_service import VisionService
 from .functions import get_api_key
@@ -174,11 +174,12 @@ def get_recipes():
         return jsonify({"error": "No ingredients found in session"}), 404
 
     vision_service = VisionService()
-    recipes = vision_service.get_recipes_from_ingredients(ingredients)
+    # recipes = vision_service.get_recipes_from_ingredients(ingredients)
     
-    if recipes is None:
-        return jsonify({"error": "Failed to fetch recipes"}), 500
-    return recipes
+    # if recipes is None:
+    #     return jsonify({"error": "Failed to fetch recipes"}), 500
+    return Response(vision_service.get_recipes_from_ingredients(ingredients), status = 200, mimetype= 'text/plain')
+    # return recipes
 
     # session_id = request.json.get("session_id")
     # if not session_id:

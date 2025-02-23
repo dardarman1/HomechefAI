@@ -101,9 +101,12 @@ class VisionService:
                 return None
 
             valid_recipes = []
-            
+            counter = 0
             # Try multiple search results until we get up to 5 valid recipes
             for result in results:  # Check up to 10 results to find 5 good ones
+                if (len(valid_recipes) >= 5 or counter >= 10):
+                    break
+                counter += 1
                 try:
                     print(f"🔹 Fetching recipe from: {result['href']}")
                     
@@ -160,7 +163,6 @@ class VisionService:
 
                     Now extract the recipe from this text:
                     """ + content_text
-
                     # 🔹 Send to Gemini AI
                     response = self.client.models.generate_content(
                         model="gemini-2.0-flash",
@@ -191,19 +193,19 @@ class VisionService:
                         and recipe_json["directions"] != []
                     ):
                         valid_recipes.append(recipe_json)
+                        yield json.dumps(recipe_json) + "\n"
                         print(f"✅ Valid recipe found: {recipe_json['recipe_name']}")
                     else:
                         print(f"🔴 Skipping {result['href']} - Empty or incomplete recipe")
-
                 except Exception as e:
                     print(f"🔴 Error processing recipe page: {e}")
+                
+            # if not valid_recipes:
+            #     print("🔴 No valid recipes found after multiple attempts.")
+            #     return None  # No valid recipes found
 
-            if not valid_recipes:
-                print("🔴 No valid recipes found after multiple attempts.")
-                return None  # No valid recipes found
-
-            print(f"✅ Successfully retrieved {len(valid_recipes)} recipes.")
-            return valid_recipes  # Return list of up to 5 recipes
+            # print(f"✅ Successfully retrieved {len(valid_recipes)} recipes.")
+            # return valid_recipes  # Return list of up to 5 recipes
 
         except Exception as e:
             print(f"🔴 Error fetching recipes: {e}")
