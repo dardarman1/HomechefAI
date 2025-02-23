@@ -5,10 +5,17 @@ using UnityEngine.Networking;
 
 public class Capture : MonoBehaviour
 {
+    [Serializable]
+    public class SessionResponse
+    {
+        public string session_id;
+    }
+
+    private string sessionId;
+
     IEnumerator Start() {
-        using (UnityWebRequest www = UnityWebRequest.Get("https://my-service-894665829957.us-central1.run.app:8080/start_session"))
+        using (UnityWebRequest www = UnityWebRequest.Get("https://my-service-894665829957.us-central1.run.app/start_session"))
         {
-            Debug.Log("Starting session");
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
@@ -17,7 +24,8 @@ public class Capture : MonoBehaviour
             }
             else
             {
-                Debug.Log("Form upload complete!");
+                var jsonResponse = JsonUtility.FromJson<SessionResponse>(www.downloadHandler.text);
+                sessionId = jsonResponse.session_id;
             }
         }
     }
@@ -38,12 +46,10 @@ public class Capture : MonoBehaviour
     }
 
     IEnumerator Upload(string image) {
-        using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app:8080/get_ingredients",
-                                                          $"{{ \"image\": {image}}}", "application/json"))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app/get_ingredients",
+                                                          $"{{\"session_id\": {sessionId}, \"image\": {image}}}", "application/json"))
         {
-            Debug.Log("Uploading image");
             yield return www.SendWebRequest();
-            Debug.Log("Sent");
 
             if (www.result != UnityWebRequest.Result.Success)
             {
@@ -51,7 +57,7 @@ public class Capture : MonoBehaviour
             }
             else
             {
-                Debug.Log("Form upload complete!");
+                Debug.Log(www.downloadHandler.text);
             }
         }
     }
