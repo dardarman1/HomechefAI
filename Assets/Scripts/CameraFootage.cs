@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,8 +85,8 @@ public class CameraFootage : MonoBehaviour
     IEnumerator AdjustCameraTexture()
     {
         yield return new WaitUntil(() => webcamTexture.width > 100);
-        
         // Adjust aspect ratio
+        rawImage.rectTransform.localEulerAngles = new Vector3(0, 0, -90);
         float aspectRatio = (float)webcamTexture.width / webcamTexture.height;
         rawImage.rectTransform.localScale = new Vector3(rawImage.rectTransform.localScale.y, rawImage.rectTransform.localScale.y, 1);
         
