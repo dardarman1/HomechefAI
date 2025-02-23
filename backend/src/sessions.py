@@ -8,8 +8,8 @@ from flask_cors import CORS
 from vision_service import VisionService
 
 # Initialize Firebase
-#cred = credentials.Certificate("/Users/sidkas484/Downloads/homechefai-41cf6-firebase-adminsdk-fbsvc-3dc3aaeadf.json")
-#firebase_admin.initialize_app(cred)
+cred = credentials.Certificate("/Users/sidkas484/Downloads/homechefai-41cf6-firebase-adminsdk-fbsvc-3dc3aaeadf.json")
+firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 app = Flask(__name__)
@@ -105,6 +105,7 @@ def get_ingredients():
         return jsonify({"error": "Failed to update Firestore"}), 500
 
     return jsonify({"message": "Ingredients extracted", "ingredients": extracted_ingredients})
+
 @app.route('/get_recipes', methods=['POST'])
 def get_recipes():
     """Fetches recipes based on stored ingredients in Firestore."""
@@ -120,8 +121,15 @@ def get_recipes():
 
     ingredients = session.to_dict().get("ingredients", [])
 
-    # Placeholder: Replace with real recipe API logic
-    recipes = ["Recipe 1", "Recipe 2", "Recipe 3"]  # Replace with real data
+    if not ingredients:
+        return jsonify({"error": "No ingredients found in session"}), 404
+
+    # Call VisionService to get recipe suggestions
+    vision_service = VisionService()
+    recipes = vision_service.get_recipes_from_ingredients(ingredients)
+
+    if recipes is None:
+        return jsonify({"error": "Failed to fetch recipes"}), 500
 
     return jsonify({"recipes": recipes})
 

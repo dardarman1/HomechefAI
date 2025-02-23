@@ -18,10 +18,12 @@ def get_api_key() -> str:
         client = secretmanager.SecretManagerServiceClient()
         response = client.access_secret_version(request={"name": secret_name})
         gemini_api_key = response.payload.data.decode('UTF-8')
+        print("{gemini_api_key}")
         return gemini_api_key
+    
     except Exception as e:
         return None
-    
+    print("debug")
     global db
     doc_ref = db.collection('api_keys').document('gemini')
     try:
