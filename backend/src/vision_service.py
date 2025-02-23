@@ -62,11 +62,11 @@ class VisionService:
 
             # Extract JSON array from the response
             response_text = response.text
-            return response_text
             json_str = response_text[response_text.find("["):response_text.rfind("]") + 1]
             ingredients = json.loads(json_str)
 
             print(f"✅ Extracted Ingredients: {ingredients}")
+            return ingredients
             # return ingredients
 
         except Exception as e:
