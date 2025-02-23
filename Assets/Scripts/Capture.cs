@@ -16,24 +16,24 @@ public class Capture : MonoBehaviour
         string base64String = Convert.ToBase64String(imageBytes);
 
         cameraFootage.DisableCamera();
+
+        StartCoroutine(Upload(base64String));
     }
 
-    // IEnumerator Upload(string image) {
-    //     string api_key = 
+    IEnumerator Upload(string image) {
+        using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app/",
+                                                          $"{{ \"image\": {image}}}", "application/json"))
+        {
+            yield return www.SendWebRequest();
 
-    //     using (UnityWebRequest www = UnityWebRequest.Post($"https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key={api_key}",
-    //                                                       $"{{ \"image\": {image}}}", "application/json"))
-    //     {
-    //         yield return www.SendWebRequest();
-
-    //         if (www.result != UnityWebRequest.Result.Success)
-    //         {
-    //             Debug.LogError(www.error);
-    //         }
-    //         else
-    //         {
-    //             Debug.Log("Form upload complete!");
-    //         }
-    //     }
-    // }
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+            }
+        }
+    }
 }
