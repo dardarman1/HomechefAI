@@ -47,13 +47,14 @@ public class Capture : MonoBehaviour
 
     IEnumerator Upload(string image) {
         using (UnityWebRequest www = UnityWebRequest.Post("https://my-service-894665829957.us-central1.run.app/get_ingredients",
-                                                          $"{{\"session_id\": {sessionId}, \"image\": {image}}}", "application/json"))
+                                                          $"{{\"session_id\": \"{sessionId}\", \"image\": \"{image}\"}}", "application/json"))
         {
+            Debug.Log(System.Text.Encoding.UTF8.GetString(www.uploadHandler.data));
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(www.error);
+                Debug.LogError(www.downloadHandler.text);
             }
             else
             {

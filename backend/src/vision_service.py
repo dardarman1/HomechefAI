@@ -24,29 +24,13 @@ class VisionService:
         self.client = genai.GenerativeModel(model_name="gemini-1.5-flash")  # Or "gemini-1.5-pro"
         print(f"✅ Successfully initialized Gemini Model: {self.client}")
 
-    def extract_ingredients_from_image(self, image_path: str):
+    def extract_ingredients_from_image(self, image_bytes: str):
         """
         Extracts ingredients from an image using Gemini Vision AI.
         :param image_path: Path to the image file
         :return: List of extracted ingredients or None if an error occurs
         """
         try:
-            print(f"🔹 Processing image: {image_path}")
-
-            # Ensure file exists
-            if not os.path.exists(image_path):
-                print(f"🔴 ERROR: File does NOT exist: {image_path}")
-                return None
-
-            # Open image and convert to binary data
-            with Image.open(image_path) as image:
-                print("✅ Image successfully loaded")
-
-                # Convert image to bytes
-                image_bytes_io = io.BytesIO()
-                image.save(image_bytes_io, format="JPEG")  # Save image in JPEG format
-                image_bytes = image_bytes_io.getvalue()
-
             prompt_text = """
             Identify all food ingredients in the image. Output as a JSON array.
             Example: ["Tomato", "Onion", "Garlic"]
