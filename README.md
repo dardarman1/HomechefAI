@@ -1,5 +1,8 @@
 # HomechefAI
 HomechefAI was created to allow for users to make use of random ingredients found in their households.
+<p align="center">
+  <image src="demo.gif">
+</p>
 
 ## Features
 -  Used Google Cloud Run and Docker to deploy our application
