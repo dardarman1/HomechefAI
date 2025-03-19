@@ -5,7 +5,7 @@ HomechefAI was created during Purdue Boilermake XII. It allows users to make use
 </p>
 
 ## Features
--  Used Google Cloud Run and Docker to deploy our application
+-  Used Google Cloud Run and Docker to deploy our application backend
 -  Employed Gemini API for image recognition as well as recipe summarization
 -  Used Unity for front-end development
 
