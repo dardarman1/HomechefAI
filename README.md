@@ -1,4 +1,5 @@
 # HomechefAI
+This repository is forked, the original is here - https://github.com/Kaya-Kaya/HomechefAI
 HomechefAI was created during Purdue Boilermake XII. It allows users to make use of random ingredients found in their households.
 <p align="center">
   <image src="demo.gif">
